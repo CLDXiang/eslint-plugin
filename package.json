@@ -1,29 +1,25 @@
 {
-  "name": "@lint-md/eslint-plugin",
+  "name": "@cldxiang/eslint-plugin-lint-md",
   "version": "0.1.0",
   "main": "lib/index.js",
   "repository": "https://github.com/lint-md/eslint-plugin.git",
   "author": "yuzhanglong <yuzl1123@163.com>",
   "license": "MIT",
   "scripts": {
-    "sync-rules": "node lib/rule-generator.js",
-    "husky:prepare": "husky install",
-    "commitlint:lint": "commitlint -e ./.git/COMMIT_EDITMSG",
     "lint": "eslint --ext .ts --ext .tsx --max-warnings 0 ./src",
-    "lib:cjs": "tsc -p tsconfig.json --target ESNext --module commonjs --outDir lib",
-    "build": "npm run clean && run-p lib:*",
-    "clean": "rimraf lib esm"
+    "build": "rimraf lib && tsc -p tsconfig.json --target ESNext --module commonjs --outDir lib && node lib/rule-generator.js",
+    "release": "bumpp && pnpm publish"
   },
   "dependencies": {
-    "@lint-md/core": "^0.2.1"
+    "@lint-md/core": "~0.2.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^12.0.1",
+    "@types/node": "^20.9.2",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
+    "bumpp": "^9.2.0",
     "eslint": "^7.19.0",
     "eslint-plugin-import": "latest",
-    "husky": "^5.1.3",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
     "typescript": "^4.2.3"
@@ -32,7 +28,6 @@
     "eslint": ">=7.0.0"
   },
   "files": [
-    "lib",
-    "src"
+    "lib"
   ]
 }
